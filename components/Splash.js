@@ -10,6 +10,13 @@ import { StackNavigator } from 'react-navigation';
 
 export default class Splash extends Component<{}> {
 
+    // static navigationOptions = {
+    //     header: null
+    // }
+    static navigationOptions = {
+        title: 'Select Your Country'
+    }
+
     constructor(props) {
         super(props);        
     }
@@ -18,9 +25,9 @@ export default class Splash extends Component<{}> {
     {
         const { navigate } = this.props.navigation;
 
-        setInterval(() => {
-            navigate('Citylist');
-        }, 10000);
+        // setInterval(() => {
+        //     navigate('Citylist');
+        // }, 10000);
     }
 
     render() {

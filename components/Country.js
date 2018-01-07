@@ -8,7 +8,7 @@ import {
     Alert
 } from 'react-native';
 
-export default class City extends Component<{}> {
+export default class Country extends Component<{}> {
 
     state = {
         data: []
@@ -17,11 +17,14 @@ export default class City extends Component<{}> {
     //     header: null
     // }
     static navigationOptions = {
-        title: 'Select Your City'
+        title: 'Select Your Country'
     }
+    
 
     constructor(props) {
         super(props);
+        console.log('Printing Props');  
+        console.log(this.props);     
     }
 
     componentWillMount() {
@@ -29,26 +32,26 @@ export default class City extends Component<{}> {
     }
 
     fetchData = async () => {
-        const country = this.props.navigation.state.params.country;
-        const response = await fetch("https://api.openaq.org/v1/cities?country=" + country);
+        const response = await fetch("https://api.openaq.org/v1/countries");
         const json = await response.json();
         this.setState({ data: json.results });
-    };
+    }
 
-    goToAirQuality(country, city) {
+    goToCities(country) {
         const { navigate } = this.props.navigation;
-        navigate('AirQuality', { country: country, city: city });
+        navigate('Citylist', { country: country });
     }
 
     render() {
+
         return (
             <View style={styles.container}>
                 <FlatList
                     data={this.state.data}
                     keyExtractor={(x, i) => i}
-                    renderItem={({ item }) =>
-                        <TouchableHighlight onPress={() => this.goToAirQuality(item.country, item.city)} underlayColor="white">
-                            <Text style={styles.item}>{item.city}</Text>
+                    renderItem={({ item }) => 
+                        <TouchableHighlight onPress={() => this.goToCities(item.code) } underlayColor="white">
+                            <Text style={styles.item}>{item.name}</Text>
                         </TouchableHighlight>
                     }
                 />
