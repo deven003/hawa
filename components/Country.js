@@ -5,13 +5,14 @@ import {
     View,
     FlatList,
     TouchableHighlight,
-    Alert
+    Alert,
+    ActivityIndicator
 } from 'react-native';
 
 export default class Country extends Component<{}> {
 
     state = {
-        data: []
+        data: null
     };
     // static navigationOptions = {
     //     header: null
@@ -44,6 +45,16 @@ export default class Country extends Component<{}> {
 
     render() {
 
+        if (!this.state.data) {
+            return (
+                <ActivityIndicator
+                    animating={true}
+                    style={styles.indicator}
+                    size="large"
+                />
+            );
+        }
+
         return (
             <View style={styles.container}>
                 <FlatList
@@ -69,5 +80,11 @@ const styles = StyleSheet.create({
         padding: 10,
         fontSize: 18,
         height: 44,
+    },
+    indicator: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: 80
     },
 })

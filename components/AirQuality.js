@@ -3,7 +3,9 @@ import {
     StyleSheet,
     Text,
     View,
-    FlatList
+    FlatList,
+    SectionList,
+    ActivityIndicator
 } from 'react-native';
 
 
@@ -14,7 +16,7 @@ export default class AirQuality extends Component<{}> {
     };
     
     static navigationOptions = {
-        header: null
+        title: 'Your city Air Quality'
     }
 
     constructor(props) {
@@ -34,12 +36,48 @@ export default class AirQuality extends Component<{}> {
     };
 
     render() {
-        return (
+        
+        // const locations = this.state.data.map((record, index) =>                
+        //             <Text key={index}>Location - {record.location}</Text>            
+        //     );
+        if (!this.state.data) {
+            return (
+                <ActivityIndicator
+                    animating={true}
+                    style={styles.indicator}
+                    size="large"
+                />
+            );
+        }
+        
+        var section = [];
+
+
+        this.state.data.forEach(function (value, key) {
+            var location = value.location;
+            var data = [];
+
+            value.measurements.forEach(function (val, index) {
+                data.push({
+                    "parameter": val.parameter,
+                    "value": val.value,
+                    "source": val.sourceName
+                });
+            });
+
+            section.push({ "title": location, "data": data });
+
+        });
+        
+        return (            
+
             <View style={styles.container}>
-                <Text>Air Quality of {this.props.navigation.state.params.country} {this.props.navigation.state.params.city}</Text>
-            {this.state.data.map((record, index) => (
-                <Text key={index}>Location - {record.location}</Text>
-            ))}                
+                <SectionList
+                    sections={section}
+                    renderItem={({ item }) => <Text style={styles.item}>{item.parameter} - {item.value}</Text>}
+                    renderSectionHeader={({ section }) => <Text style={styles.sectionHeader}>{section.title}</Text>}
+                    keyExtractor={(item, index) => index}
+                />
             </View>
         );
     }
@@ -47,12 +85,26 @@ export default class AirQuality extends Component<{}> {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        paddingTop: 22
+        flex: 1        
     },
     item: {
         padding: 10,
         fontSize: 18,
         height: 44,
+    },
+    indicator: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: 80
+    },
+    sectionHeader: {
+        paddingTop: 5,
+        paddingLeft: 10,
+        paddingRight: 10,
+        paddingBottom: 5,
+        fontSize: 14,
+        fontWeight: 'bold',
+        backgroundColor: 'rgba(247,247,247,1.0)',
     },
 })
