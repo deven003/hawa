@@ -14,18 +14,15 @@ export default class Country extends Component<{}> {
     state = {
         data: null
     };
-    // static navigationOptions = {
-    //     header: null
-    // }
+
     static navigationOptions = {
-        title: 'Select Your Country'
-    }
-    
+        title: 'Select Your Country',
+        headerStyle: { backgroundColor: '#3F51B5' },
+        headerTitleStyle: { color: '#fff' },
+    }    
 
     constructor(props) {
         super(props);
-        console.log('Printing Props');  
-        console.log(this.props);     
     }
 
     componentWillMount() {

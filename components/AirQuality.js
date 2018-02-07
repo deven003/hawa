@@ -16,7 +16,9 @@ export default class AirQuality extends Component<{}> {
     };
     
     static navigationOptions = {
-        title: 'Your city Air Quality'
+        title: 'Your city Air Quality',
+        headerStyle: { backgroundColor: '#3F51B5' },
+        headerTitleStyle: { color: '#fff' },
     }
 
     constructor(props) {
@@ -61,7 +63,8 @@ export default class AirQuality extends Component<{}> {
                 data.push({
                     "parameter": val.parameter,
                     "value": val.value,
-                    "source": val.sourceName
+                    "source": val.sourceName,
+                    "unit": val.unit
                 });
             });
 
@@ -74,8 +77,10 @@ export default class AirQuality extends Component<{}> {
             <View style={styles.container}>
                 <SectionList
                     sections={section}
-                    renderItem={({ item }) => <Text style={styles.item}>{item.parameter} - {item.value}</Text>}
-                    renderSectionHeader={({ section }) => <Text style={styles.sectionHeader}>{section.title}</Text>}
+                    renderItem={({ item }) => <Text style={styles.item}>{item.parameter} - {item.value} <Text style={styles.unit}>{item.unit}</Text></Text>}
+                    renderSectionHeader={({ section }) => 
+                        <Text style={styles.sectionHeader}>{section.title}</Text>
+                    }
                     keyExtractor={(item, index) => index}
                 />
             </View>
@@ -92,6 +97,9 @@ const styles = StyleSheet.create({
         fontSize: 18,
         height: 44,
     },
+    unit: {
+        fontSize: 12
+    },
     indicator: {
         flex: 1,
         alignItems: 'center',
@@ -99,12 +107,13 @@ const styles = StyleSheet.create({
         height: 80
     },
     sectionHeader: {
-        paddingTop: 5,
+        paddingTop: 10,
         paddingLeft: 10,
         paddingRight: 10,
-        paddingBottom: 5,
+        paddingBottom: 10,
         fontSize: 14,
         fontWeight: 'bold',
-        backgroundColor: 'rgba(247,247,247,1.0)',
+        backgroundColor: '#5C6BC0',
+        color: '#fff'
     },
 })

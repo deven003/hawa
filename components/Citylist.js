@@ -18,7 +18,9 @@ export default class City extends Component<{}> {
     //     header: null
     // }
     static navigationOptions = {
-        title: 'Select Your City'
+        title: 'Select Your City',
+        headerStyle: { backgroundColor: '#3F51B5' },
+        headerTitleStyle: { color: '#fff' },
     }
 
     constructor(props) {
