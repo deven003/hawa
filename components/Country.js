@@ -16,11 +16,10 @@ export default class Country extends Component<{}> {
         data: null
     };
 
-    static navigationOptions = {
-        title: 'Select Your Country',
-        headerStyle: { backgroundColor: '#3F51B5' },
-        headerTitleStyle: { color: '#fff' },
-    }    
+    // static navigationOptions = {
+    //     headerStyle: { backgroundColor: '#3F51B5' },
+    //     headerTitleStyle: { color: '#fff' },
+    // }    
 
     constructor(props) {
         super(props);

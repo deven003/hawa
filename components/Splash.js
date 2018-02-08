@@ -14,9 +14,9 @@ import Country from './Country';
 
 export default class Splash extends Component<{}> {
 
-    static navigationOptions = {
-        header: null,
-    }
+    // static navigationOptions = {
+    //     header: null,
+    // }
     
     constructor(props) {
         super(props);      

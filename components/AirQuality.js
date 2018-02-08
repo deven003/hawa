@@ -15,11 +15,11 @@ export default class AirQuality extends Component<{}> {
         data: []
     };
     
-    static navigationOptions = {
-        title: 'Your city Air Quality',
-        headerStyle: { backgroundColor: '#3F51B5' },
-        headerTitleStyle: { color: '#fff' },
-    }
+    // static navigationOptions = {
+    //     title: 'Your city Air Quality',
+    //     headerStyle: { backgroundColor: '#3F51B5' },
+    //     headerTitleStyle: { color: '#fff' },
+    // }
 
     constructor(props) {
         super(props);
