@@ -6,7 +6,8 @@ import {
     FlatList,
     TouchableHighlight,
     Alert,
-    ActivityIndicator
+    ActivityIndicator,
+    AsyncStorage
 } from 'react-native';
 
 export default class Country extends Component<{}> {
@@ -36,6 +37,7 @@ export default class Country extends Component<{}> {
     }
 
     goToCities(country) {
+        AsyncStorage.setItem('country', country);
         const { navigate } = this.props.navigation;
         navigate('Citylist', { country: country });
     }

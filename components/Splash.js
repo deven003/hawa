@@ -3,10 +3,13 @@ import {
     StyleSheet,
     Text,
     View,
-    Button
+    Button,
+    AsyncStorage,
+    ActivityIndicator
 } from 'react-native';
 
 import { StackNavigator } from 'react-navigation';
+import Country from './Country';
 
 
 export default class Splash extends Component<{}> {
@@ -16,10 +19,11 @@ export default class Splash extends Component<{}> {
     }
     
     constructor(props) {
-        super(props);        
+        super(props);      
+        this.state = {isReady: false };  
     }
 
-    componentDidMount()
+    componentWillMount()
     {
         // const { navigate } = this.props.navigation;
 
@@ -30,19 +34,39 @@ export default class Splash extends Component<{}> {
         // console.debug('interval id ' + intervalId);   
         // console.debug('unmounting interval id ' + intervalId);
         // clearInterval(intervalId);     
-    }
-
-    componentWillUnmount() {
+        this.checkIfCountryExists();
         
     }
 
-    goToCountry() {
+    async checkIfCountryExists()
+    {
+        const { navigate } = this.props.navigation;
+
+        const city = await AsyncStorage.getItem('city');
+        const country = await AsyncStorage.getItem('country');
+        console.log(city);
+        if (city !== null && country !== null) {
+            navigate('AirQuality', { country: country, city: city });
+        } else {
+            this.setState({ isReady: true });
+        }
     }
 
     render() {
 
         const { navigate } = this.props.navigation;
-
+        
+        if (!this.state.isReady) 
+        {
+            return (
+                <ActivityIndicator
+                    animating={true}
+                    style={styles.indicator}
+                    size="large"
+                />
+            );
+        }
+        
         return (
             <View style={styles.container}>
                 <Text style={styles.logo}>HAWA</Text>
@@ -79,7 +103,13 @@ const styles = StyleSheet.create({
         marginTop: 50,
         paddingTop: 10,
         paddingBottom: 10,
-    }
+    },
+    indicator: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: 80
+    },
 
 
 })

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import {
-  Text,
-  View
+    Text,
+    View,
+    AsyncStorage
 } from 'react-native';
 
 import { StackNavigator } from 'react-navigation';
@@ -19,10 +20,15 @@ const Router = StackNavigator({
 });
 
 export default class App extends Component<{}> {
-  render() {
-    return (
-        <Router />
-    );
-  }
+
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        return (
+            <Router />
+        );
+    }
 }
 
